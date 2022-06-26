@@ -1,0 +1,19 @@
+@import './vars.sass'
+
+@mixin shadow
+    filter: drop-shadow(15px 25px 15px rgba(6, 5, 4, 0.149))
+@mixin flex-between
+    display: flex
+    justify-content: space-between
+    align-items: center
+@mixin column($gap)
+    display: flex
+    flex-direction: column
+    gap: $gap
+@mixin container
+    width: 100%
+    margin: 0  auto
+    padding: 0 15px
+    @media screen and (min-width: 1200px )
+        width: 1200px
+    
