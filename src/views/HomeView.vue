@@ -1,7 +1,5 @@
 <template>
-    <div class="container">
-        <h1>Hello</h1>
-    </div>
+    <h1>Hello</h1>
 </template>
 
 <script lang="ts" setup>
@@ -18,4 +16,6 @@ onMounted(() => {
 </script>
 
 <style lang="sass" scoped>
+@import '../styles/mixins.sass'
+
 </style>
