@@ -1,10 +1,14 @@
 <template>
-    <h1>Hello</h1>
+    <div>
+        <SignInForm class="signin" />
+    </div>
 </template>
 
 <script lang="ts" setup>
 import { onMounted } from "@vue/runtime-core";
 import { useStore } from "vuex";
+
+import SignInForm from '@/components/SignInForm/SignInForm.vue'
 
 const store = useStore()
 onMounted(() => {
@@ -18,4 +22,6 @@ onMounted(() => {
 <style lang="sass" scoped>
 @import '../styles/mixins.sass'
 
+.signin
+    @include set-center
 </style>

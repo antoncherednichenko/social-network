@@ -15,7 +15,12 @@ import AppHeader from '@/components/global/AppHeader/AppHeader.vue';
 .layout
     width: 100%
     height: 100vh
+    position: absolute
+    top: 0
+    left: 0
 .content
-    margin-top: 25px
     overflow-y: auto
+    height: 100vh
+    max-height: calc( 100vh - 54px )
+    position: relative
 </style>

@@ -1,14 +1,11 @@
 import { StoreOptions } from 'vuex'
 import { set } from 'lodash'
 
-import { IRootState } from '@/types/rootStateTypes'
+import { IRootState, ISetObj } from '@/types/rootStateTypes'
 
 import api from '@/modules/apiModule'
 
-interface ISetObj<T> {
-    path: string,
-    value: T
-}
+
 
 const rootState: StoreOptions<IRootState> = {
     state: {
