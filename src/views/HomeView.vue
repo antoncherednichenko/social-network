@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <SignInForm class="signin" />
-    </div>
+    <SignInForm class="signin" />
 </template>
 
 <script lang="ts" setup>
