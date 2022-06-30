@@ -11,8 +11,8 @@ import SignInForm from '@/components/SignInForm/SignInForm.vue'
 const store = useStore()
 onMounted(() => {
     store.dispatch('api/API', {
-        method: 'users?count=50',
-        tyep: 'GET'
+        method: 'GET',
+        type: 'users'
     })
 })
 </script>

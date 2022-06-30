@@ -1,6 +1,8 @@
 import axios from "axios"
+
 import { Module } from "vuex"
-import { IApiModule } from "@/types/apiModuleTypes"
+
+import { IApiModule, IRequestSettings } from "@/types/apiModuleTypes"
 import { IRootState } from "@/types/rootStateTypes"
 
 const api: Module<IApiModule, IRootState> = {
@@ -9,15 +11,16 @@ const api: Module<IApiModule, IRootState> = {
         baseUrl: 'http://127.0.0.1:5000'
     },
     actions: {
-        API({ state }, { method, type, data }) {
+        API({ state }, requestSettings: IRequestSettings) {
+            const { method, type, data } = requestSettings
 
             return axios({
-                baseURL: `${state.baseUrl}/${method}`,
-                method: type,
+                baseURL: `${state.baseUrl}/${type}`,
+                method,
                 data
             }).then(res => {
-                console.log(JSON.parse(res.data))
-                return res.data
+                console.log(res)
+                return res
             }).catch(err => {
                 console.error(err.message)
             })

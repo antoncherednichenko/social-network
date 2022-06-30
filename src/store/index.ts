@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+
 import rootState from './rootState'
 
 

@@ -65,7 +65,7 @@ const hideLabel = () => { isLabel.value = false }
     transition: filter 0.5s
     &:focus
         outline: none
-        @include shadow
+        @include light-shadow
 .valid, .unvalid
     display: inline-block
     font-size: 13px
@@ -74,9 +74,9 @@ const hideLabel = () => { isLabel.value = false }
 .unvalid
     color: $main-red
 .bg-red
-    background: $light-red
+    border: 1px solid $main-red
 .bg-green
-    background: $light-green
+    border: 1px solid $main-green
 
 .label-enter-active, .label-leave-active
   transition: opacity .5s

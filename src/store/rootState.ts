@@ -4,6 +4,7 @@ import { set } from 'lodash'
 import { IRootState, ISetObj } from '@/types/rootStateTypes'
 
 import api from '@/modules/apiModule'
+import userModule from '@/modules/userModule'
 
 
 
@@ -22,7 +23,8 @@ const rootState: StoreOptions<IRootState> = {
         }
     },
     modules: {
-        api
+        api,
+        user: userModule
     }
 }
 
