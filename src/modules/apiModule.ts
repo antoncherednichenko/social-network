@@ -19,8 +19,10 @@ const api: Module<IApiModule, IRootState> = {
                 method,
                 data
             }).then(res => {
-                console.log(res)
-                return res
+                if(res.status === 200) {
+                    return res
+                }
+                
             }).catch(err => {
                 console.error(err.message)
             })

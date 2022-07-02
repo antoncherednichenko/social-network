@@ -1,7 +1,6 @@
 import express from 'express'
-import request from 'request'
 import bodyParser from 'body-parser'
-import cors from 'cors'
+import axios from 'axios'
 
 const baseURL = 'https://social-network.samuraijs.com/api/1.0'
 const headers = {
@@ -17,62 +16,75 @@ const urlencodedParser = bodyParser.urlencoded({
   })
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*')
-    req.header("Access-Control-Allow-Headers", "X-Requested-With")
-    cors({
-        origin: 'http://localhost:8080/*'
+    bodyParser.urlencoded({
+        extended: false,
     })
-    next()
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+    next();
 })
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 
 app.get('/users', async (req, resp) => {
-    request(
-        {
-            url: `${baseURL}/users`,
+    axios({
+        method: 'GET',
+        url: `${baseURL}/users`,
+        data: {
             headers
-        },
-        (error, response, body) => {
-            if(error) {
-                resp.status(500).json(error)
-            } else {
-                resp.status(200).json(body)
-            }
         }
-    )
+    }).then(e => {
+        if(e.status === 200) {
+            resp.status(200).json(e.data)
+        } else {
+            resp.status(500).json(e.status)
+        }
+    }).catch(err => {
+        resp.status(500).json(err)
+    })
 })
 
 app.get('/captcha', async (req, resp) => {
-    request(
-        {
-            url: `${baseURL}/security/get-captcha-url`,
+
+    axios({
+        method: 'GET',
+        url: `${baseURL}/security/get-captcha-url`,
+        data: {
             headers
-        },
-        (error, response, body) => {
-            if(error) {
-                resp.status(500).json(error)
-            } else {
-                resp.status(200).json(body)
-            }
         }
-    )
+    }).then(e => {
+        if(e.status === 200) {
+            resp.status(200).json(e.data)
+        } else {
+            resp.status(500).json(e.status)
+        }
+    }).catch(err => {
+        resp.status(500).json(err)
+    })
 })
 
 app.post('/login', urlencodedParser,  async (req, resp) => {
-    console.log(req)
-    request(
-        {
-            url: `${baseURL}/auth/login`,
-            headers
-        },
-        (error, response, body) => {
-            if(error) {
-                resp.status(500).json(error)
-            } else {
-                resp.status(200).json(body)
-            }
+    console.log(JSON.stringify(req.body))
+
+    axios({
+        method: 'POST',
+        withCredentials: false,
+        url: `${baseURL}/auth/login`,
+        data: {
+            headers,
+            data: JSON.stringify(req.body)
         }
-    )
+    }).then(e => {
+        if(e.status === 200) {
+            resp.status(200).json(e)
+        } else {
+            resp.status(500).json(e)
+        }
+    }).catch(err => {
+        resp.status(500).json(err)
+    })
 })
 
 

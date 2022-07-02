@@ -6,6 +6,7 @@ export interface ICaptcha {
 
 export interface IUserModule {
     login: string,
+    password: string,
     isAuth: boolean 
     captcha: ICaptcha
 }

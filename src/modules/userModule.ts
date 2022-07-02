@@ -8,6 +8,7 @@ const userModule: Module<IUserModule, IRootState> = {
     namespaced: true,
     state: {
         login: '',
+        password: '',
         isAuth: false,
         captcha: {
             isCaptcha: false,
@@ -22,8 +23,9 @@ const userModule: Module<IUserModule, IRootState> = {
                 method: 'POST',
                 type: 'login',
                 data: {
-                    login,
-                    password
+                    email: login,
+                    password,
+                    rememberMe: false
                 }
             }, { root: true }).then(res => {
                 console.log(res, 'LOGIN')

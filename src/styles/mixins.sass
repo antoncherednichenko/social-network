@@ -23,4 +23,15 @@
     top: 50%
     left: 50%
     transform: translate(-50%, -50%)
-    
+@mixin default-button
+    padding: 5px 10px
+    display: inline-block
+    text-align: center
+    font-size: 20px
+    border-radius: 4px
+    color: $main-black
+    font-weight: 600
+    background: $main-green
+    @include light-shadow
+    &:hover
+        opacity: 0.9

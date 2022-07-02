@@ -12,7 +12,7 @@ interface IButtonProps {
 const props = defineProps<IButtonProps>()
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 @import '../../../styles/mixins'
 @import '../../../styles/vars'
 
