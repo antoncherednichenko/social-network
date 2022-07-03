@@ -7,11 +7,13 @@ export interface ICaptcha {
 export interface IUserModule {
     login: string,
     password: string,
-    isAuth: boolean 
+    isAuth: boolean,
+    userID: number, 
     captcha: ICaptcha
 }
 
 export interface IUser {
     login: string,
-    password: string
+    password: string,
+    captcha?: string
 }

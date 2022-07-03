@@ -13,7 +13,7 @@ onMounted(() => {
     store.dispatch('api/API', {
         method: 'GET',
         type: 'users'
-    })
+    }).then(e => console.log(e, 'USERS')) 
 })
 </script>
 

@@ -10,14 +10,15 @@ const userModule: Module<IUserModule, IRootState> = {
         login: '',
         password: '',
         isAuth: false,
+        userID: 0,
         captcha: {
             isCaptcha: false,
             url: ''
         }
     },
     actions: {
-        login({ dispatch }, user: IUser) {
-            const { login, password } = user
+        login({ dispatch, commit }, user: IUser) {
+            const { login, password, captcha } = user
 
             return dispatch('api/API', {
                 method: 'POST',
@@ -25,10 +26,19 @@ const userModule: Module<IUserModule, IRootState> = {
                 data: {
                     email: login,
                     password,
-                    rememberMe: false
+                    rememberMe: false,
+                    captcha
                 }
             }, { root: true }).then(res => {
-                console.log(res, 'LOGIN')
+                if(res.status === 200 && res.data?.resultCode === 0) {
+                    commit(
+                        'setObjectValue', 
+                        { path: 'user.userID', value: res.data?.data?.userId },
+                        { root: true }
+                    )
+                } else if(res?.data?.resultCode === 10) {
+                    dispatch('getCaptcha')
+                }
             }).catch(err => {
                 console.error(err.message)
             })

@@ -25,7 +25,7 @@ const props = defineProps<IButtonProps>()
     box-shadow: -10px -10px 15px rgba(255,255,255,0.5), 10px 10px 15px rgba(70,70,70,0.12)
     font-size: 18px
     font-weight: 600
-    letter-spacing: 0.3rem
+    letter-spacing: 1px
     &:hover
         box-shadow: -10px -10px 15px rgba(255,255,255,0.5), 10px 10px 15px rgba(70,70,70,0.15)
     &:active

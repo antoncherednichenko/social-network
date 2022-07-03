@@ -66,21 +66,18 @@ app.get('/captcha', async (req, resp) => {
 })
 
 app.post('/login', urlencodedParser,  async (req, resp) => {
-    console.log(JSON.stringify(req.body))
 
     axios({
         method: 'POST',
-        withCredentials: false,
+        withCredentials: true,
         url: `${baseURL}/auth/login`,
-        data: {
-            headers,
-            data: JSON.stringify(req.body)
-        }
+        headers,
+        data: req.body
     }).then(e => {
         if(e.status === 200) {
-            resp.status(200).json(e)
+            resp.status(200).json(e.data)
         } else {
-            resp.status(500).json(e)
+            resp.status(500).json(e.data)
         }
     }).catch(err => {
         resp.status(500).json(err)
