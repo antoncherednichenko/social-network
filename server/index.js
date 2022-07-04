@@ -65,6 +65,25 @@ app.get('/captcha', async (req, resp) => {
     })
 })
 
+app.get('/me', async (req, resp) => {
+
+    axios({
+        method: 'GET',
+        url: `${baseURL}/auth/me`,
+        data: {
+            headers
+        }
+    }).then(e => {
+        if(e.status === 200) {
+            resp.status(200).json(e.data)
+        } else {
+            resp.status(500).json(e.status)
+        }
+    }).catch(err => {
+        resp.status(500).json(err)
+    })
+})
+
 app.post('/login', urlencodedParser,  async (req, resp) => {
 
     axios({

@@ -1,19 +1,23 @@
 <template>
-    <SignInForm class="signin" />
+    <div>
+        <SignInForm class="signin" />
+        <AuthCaptcha v-if="isCaptcha" />
+    </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from "@vue/runtime-core";
+import { onMounted, computed } from "@vue/runtime-core";
 import { useStore } from "vuex";
 
 import SignInForm from '@/components/SignInForm/SignInForm.vue'
+import AuthCaptcha from '@/components/AuthCaptcha/AuthCaptcha.vue'
 
-const store = useStore()
+const { dispatch, state } = useStore()
+
+const isCaptcha = computed<boolean>(() => state.user?.captcha?.isCaptcha)
+
 onMounted(() => {
-    store.dispatch('api/API', {
-        method: 'GET',
-        type: 'users'
-    }).then(e => console.log(e, 'USERS')) 
+    dispatch('user/getMe')
 })
 </script>
 

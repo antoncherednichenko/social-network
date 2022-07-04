@@ -1,6 +1,6 @@
+import router from "@/router"
 
 import { Module } from "vuex"
-
 import { IRootState } from "@/types/rootStateTypes"
 import { IUserModule, IUser } from "@/types/userModuleTypes"
 
@@ -17,6 +17,21 @@ const userModule: Module<IUserModule, IRootState> = {
         }
     },
     actions: {
+
+        getMe({ dispatch, commit }) {
+
+            return dispatch('api/API', {
+                method: 'GET',
+                type: 'me',
+            }, { root: true }).then(res => {
+                if(res.status === 200 && res.data?.data?.resultCode === 0 && res.data?.data?.id) {
+                    commit('setObjectValue', { path: 'user.userID', value: res.data.data.id }, { root: true })
+                    commit('setObjectValue', { path: 'user.login', value: res.data.data.login }, { root: true })
+                    router.push(`/profile/${res.data.data.id}`)
+                }
+            })
+        },
+
         login({ dispatch, commit }, user: IUser) {
             const { login, password, captcha } = user
 
@@ -36,6 +51,7 @@ const userModule: Module<IUserModule, IRootState> = {
                         { path: 'user.userID', value: res.data?.data?.userId },
                         { root: true }
                     )
+                    router.push(`/profile/${res.data.data.userId}`)
                 } else if(res?.data?.resultCode === 10) {
                     dispatch('getCaptcha')
                 }
@@ -44,13 +60,19 @@ const userModule: Module<IUserModule, IRootState> = {
             })
         },
 
-        getCaptcha({ dispatch }) {
+        getCaptcha({ dispatch, commit }) {
 
             return dispatch('api/API', {
                 type: 'captcha',
                 method: 'GET'
             }, { root: true }).then(res => {
-                console.log(JSON.parse(res.data), 'CAPTCHA')
+                console.log(res)
+                if(res.status === 200) {
+                    commit('setObjectValue', { path: 'user.captcha.url', value: res.data?.url }, { root: true })
+                    commit('setObjectValue', { path: 'user.captcha.isCaptcha', value: true }, { root: true })
+                }
+            }).catch(err => {
+                console.error(err.message)
             })
         }
     }

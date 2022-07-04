@@ -47,10 +47,12 @@ const validator = (value: string): boolean => value.length >= 4
 
 const signin = () => {
     if(isValidFrom.value) {
-        store.dispatch('user/login', {
-            login: login.value,
-            password: password.value
-        })
+        // store.dispatch('user/login', {
+        //     login: login.value,
+        //     password: password.value
+        // })
+
+        store.dispatch('user/getCaptcha')
     }
 }
 
