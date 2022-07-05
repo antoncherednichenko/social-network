@@ -29,30 +29,32 @@ import { useStore } from 'vuex';
 import AppInput from '@/components/ui/AppInput/AppInput.vue'
 import AppButton from '@/components/ui/AppButton/AppButton.vue'
 
-const store = useStore()
+const { dispatch, state } = useStore()
 
-const login = computed<string>(() => store.state.user.login)
-const password = computed<string>(() => store.state.user.password)
+const login = computed<string>(() => state.user.login)
+const password = computed<string>(() => state.user.password)
 const isValidFrom = computed<boolean>(() => login.value.length >= 4 && password.value.length >= 4)
 
 const onLoginChange = (value: string) => { 
-    store.dispatch('dispatchObjectValue', { path: 'user.login', value }) 
+    dispatch('dispatchObjectValue', { path: 'user.login', value }) 
 }
 
 const onPasswordChange = (value: string) => {
-    store.dispatch('dispatchObjectValue', { path: 'user.password', value })
+    dispatch('dispatchObjectValue', { path: 'user.password', value })
 }
 
 const validator = (value: string): boolean => value.length >= 4
 
 const signin = () => {
     if(isValidFrom.value) {
-        // store.dispatch('user/login', {
+        // dispatch('user/login', {
         //     login: login.value,
         //     password: password.value
         // })
 
-        store.dispatch('user/getCaptcha')
+        dispatch('user/getCaptcha')
+
+        // dispatch('dispatchObjectValue', { path: 'user.captcha.isCaptcha', value: true })
     }
 }
 

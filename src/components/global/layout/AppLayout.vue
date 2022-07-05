@@ -21,6 +21,5 @@ import AppHeader from '@/components/global/AppHeader/AppHeader.vue';
 .content
     overflow-y: auto
     height: 100vh
-    max-height: calc( 100vh - 54px )
-    position: relative
+    max-height: calc( 100vh - 65px )
 </style>

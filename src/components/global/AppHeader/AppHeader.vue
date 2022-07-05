@@ -28,11 +28,15 @@ const getDemoAcc = () => {
 .header
     width: 100%
     @include shadow
-    padding: 15px 0
+    padding: 10px 0
+    display: flex
+    align-items: center
+    height: 65px
     background: #fff
 .flex-container
     display: flex
     justify-content: flex-end
+    align-items: center
     .header-link
         width: 150px
         margin-right: 15px
