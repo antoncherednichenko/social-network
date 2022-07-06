@@ -5,15 +5,15 @@ export interface ICaptcha {
 }
 
 export interface IUserModule {
+    email: string,
     login: string,
     password: string,
-    isAuth: boolean,
     userID: number, 
     captcha: ICaptcha
 }
 
 export interface IUser {
-    login: string,
+    email: string,
     password: string,
     captcha?: string
 }

@@ -3,11 +3,11 @@
         <AppInput 
             type="text" 
             :validator="validator"
-            :value="login"
-            placeholder="Login"
-            validMessage="It's valid login"
-            unvalidMessage="It's unvalid login"
-            @binding="onLoginChange" 
+            :value="email"
+            placeholder="email"
+            validMessage="It's valid email"
+            unvalidMessage="It's unvalid email"
+            @binding="onEmailChange" 
         />
         <AppInput 
             type="password" 
@@ -31,12 +31,12 @@ import AppButton from '@/components/ui/AppButton/AppButton.vue'
 
 const { dispatch, state } = useStore()
 
-const login = computed<string>(() => state.user.login)
+const email = computed<string>(() => state.user.email)
 const password = computed<string>(() => state.user.password)
-const isValidFrom = computed<boolean>(() => login.value.length >= 4 && password.value.length >= 4)
+const isValidFrom = computed<boolean>(() => email.value.length >= 4 && password.value.length >= 4)
 
-const onLoginChange = (value: string) => { 
-    dispatch('dispatchObjectValue', { path: 'user.login', value }) 
+const onEmailChange = (value: string) => { 
+    dispatch('dispatchObjectValue', { path: 'user.email', value }) 
 }
 
 const onPasswordChange = (value: string) => {
@@ -47,14 +47,10 @@ const validator = (value: string): boolean => value.length >= 4
 
 const signin = () => {
     if(isValidFrom.value) {
-        // dispatch('user/login', {
-        //     login: login.value,
-        //     password: password.value
-        // })
-
-        dispatch('user/getCaptcha')
-
-        // dispatch('dispatchObjectValue', { path: 'user.captcha.isCaptcha', value: true })
+        dispatch('user/login', {
+            email: email.value,
+            password: password.value
+        })
     }
 }
 

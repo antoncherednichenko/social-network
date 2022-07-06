@@ -1,23 +1,33 @@
 <template>
     <header class="header">
         <div class="container flex-container">
-            <SignUpLink class="header-link" />
-            <DefaultButton @click="getDemoAcc">Demo</DefaultButton>     
+            <AppLogo />
+            <div v-if="!isAuth" class="btns">
+                <SignUpLink class="header-link" />
+                <DefaultButton @click="getDemoAcc">Demo</DefaultButton>
+            </div>
+            <div v-if="isAuth">
+                USER PROFILE
+            </div>     
         </div>
     </header>
 </template>
 
 <script lang="ts" setup>
 import SignUpLink from '@/components/global/AppHeader/SignUpLink.vue'
-import DefaultButton from '@/components/ui/DefaultButton/DefaultButton.vue';
+import DefaultButton from '@/components/ui/DefaultButton/DefaultButton.vue'
+import AppLogo from '@/components/global/AppHeader/AppLogo.vue'
 
 import { useStore } from 'vuex';
+import { computed } from '@vue/reactivity';
 
-const store = useStore()
+const { dispatch, getters } = useStore()
+
+const isAuth = computed<boolean>(() => getters['user/isAuth'])
 
 const getDemoAcc = () => {
-    store.dispatch('dispatchObjectValue', { path: 'user.login', value: 'free@samuraijs.com' })
-    store.dispatch('dispatchObjectValue', { path: 'user.password', value: 'free' })
+    dispatch('dispatchObjectValue', { path: 'user.email', value: 'free@samuraijs.com' })
+    dispatch('dispatchObjectValue', { path: 'user.password', value: 'free' })
 }
 
 </script>
@@ -34,9 +44,7 @@ const getDemoAcc = () => {
     height: 65px
     background: #fff
 .flex-container
-    display: flex
-    justify-content: flex-end
-    align-items: center
+    @include flex-between
     .header-link
         width: 150px
         margin-right: 15px

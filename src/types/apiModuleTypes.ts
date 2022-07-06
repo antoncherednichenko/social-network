@@ -9,6 +9,6 @@ export interface IRequestSettings {
 }
 
 interface ISettingsData {
-    login?: string,
+    email?: string,
     password?: string
 }

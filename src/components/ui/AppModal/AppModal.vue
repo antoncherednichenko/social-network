@@ -67,14 +67,18 @@ const closeModal = () => {
     &__header, &__footer
         width: 100%
         padding: 15px 10px
+        height: 70px
         background: $main-grey
     .header
         @include flex-between
         &__content
             width: 100%
+        &__cross
+            @include flex-center
     &__content
         width: 100%
         padding: 15px
+        height: calc( 85vh - 140px )
         overflow-y: auto
     &__footer
         position: fixed
