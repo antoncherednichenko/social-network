@@ -11,16 +11,25 @@ import AuthCaptcha from '@/components/AuthCaptcha/AuthCaptcha.vue'
 
 import { onMounted, computed } from "@vue/runtime-core";
 import { useStore } from "vuex";
+import router from '@/router';
 
-const { dispatch, state, getters } = useStore()
+const { dispatch, state} = useStore()
 
 const isCaptcha = computed<boolean>(() => state.user?.captcha?.isCaptcha)
-const isAuth = computed<boolean>(() => getters['user/isAuth'])
+const isAuth = computed<boolean>(() => state.user.isAuth)
+const userID = computed<number>(() => state.user.userID)
 
 onMounted(() => {
-    if(!isAuth.value) {
-        dispatch('user/getMe')
-    }
+   if(!isAuth.value) {
+     dispatch('user/getMe')
+        .then(() => {
+            if(isAuth.value) {
+                router.push(`/profile/${userID.value}`)
+            }
+        })
+   } else {
+        router.push(`/profile/${userID.value}`)
+   }
 })
 </script>
 

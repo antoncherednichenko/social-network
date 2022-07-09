@@ -18,7 +18,7 @@
             unvalidMessage="It's unvalid password"
             @binding="onPasswordChange" 
         />
-        <AppButton @click="signin" :disabled="!isValidFrom">Sign In</AppButton>
+        <AppButton @click.prevent="signin" :disabled="!isValidFrom">Sign In</AppButton>
     </div>
 </template>
 

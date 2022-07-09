@@ -8,7 +8,8 @@ export interface IUserModule {
     email: string,
     login: string,
     password: string,
-    userID: number, 
+    userID: number | null,
+    isAuth: boolean, 
     captcha: ICaptcha
 }
 

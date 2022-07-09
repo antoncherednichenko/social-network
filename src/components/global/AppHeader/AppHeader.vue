@@ -6,9 +6,7 @@
                 <SignUpLink class="header-link" />
                 <DefaultButton @click="getDemoAcc">Demo</DefaultButton>
             </div>
-            <div v-if="isAuth">
-                USER PROFILE
-            </div>     
+            <UserInfo v-if="isAuth" />    
         </div>
     </header>
 </template>
@@ -17,13 +15,14 @@
 import SignUpLink from '@/components/global/AppHeader/SignUpLink.vue'
 import DefaultButton from '@/components/ui/DefaultButton/DefaultButton.vue'
 import AppLogo from '@/components/global/AppHeader/AppLogo.vue'
+import UserInfo from '@/components/global/AppHeader/UserInfo.vue'
 
 import { useStore } from 'vuex';
 import { computed } from '@vue/reactivity';
 
-const { dispatch, getters } = useStore()
+const { dispatch, state } = useStore()
 
-const isAuth = computed<boolean>(() => getters['user/isAuth'])
+const isAuth = computed<boolean>(() => state.user.isAuth)
 
 const getDemoAcc = () => {
     dispatch('dispatchObjectValue', { path: 'user.email', value: 'free@samuraijs.com' })
