@@ -26,14 +26,20 @@ const userModule: Module<IUserModule, IRootState> = {
                 type: 'me',
             }, { root: true }).then(res => {
                 if(res.status === 200 && res.data?.data?.resultCode === 0 && res.data?.data?.id) {
+                    localStorage.setItem('isAuth', JSON.stringify(true))
+                    localStorage.setItem('userID', JSON.stringify(res.data.data.id))
+                    localStorage.setItem('userLogin', JSON.stringify(res.data.data.login || res.data.data.email))
 
                     commit('setObjectValue', { path: 'user.userID', value: res.data.data.id }, { root: true })
                     commit('setObjectValue', { path: 'user.isAuth', value: true }, { root: true })
                     commit('setObjectValue', { path: 'user.login', value: res.data.data.login }, { root: true })
                     commit('setObjectValue', { path: 'user.email', value: res.data.data.email }, { root: true })
 
-                    router.push(`/profile/${res.data.data.id}`)
+                    router.push(`/profile/${res.data.data.id}/me`)
                 } else {
+                    localStorage.setItem('isAuth', JSON.stringify(false))
+                    localStorage.setItem('userID', JSON.stringify(null))
+
                     commit('setObjectValue', { path: 'user.userID', value: null }, { root: true })
                     commit('setObjectValue', { path: 'user.isAuth', value: false }, { root: true })
                 }
@@ -49,19 +55,26 @@ const userModule: Module<IUserModule, IRootState> = {
                 data: {
                     email,
                     password,
-                    rememberMe: false,
+                    rememberMe: true,
                     captcha
                 }
             }, { root: true }).then(res => {
                 if(res.status === 200 && res.data?.resultCode === 0) {
+                    localStorage.setItem('isAuth', JSON.stringify(true))
+                    localStorage.setItem('userID', JSON.stringify(res.data?.data?.userId))
+                    localStorage.setItem('userLogin', JSON.stringify(email))
+
                     commit('setObjectValue', { path: 'user.userID', value: res.data?.data?.userId }, { root: true })
                     commit('setObjectValue', { path: 'user.isAuth', value: true }, { root: true })
                     
-                    router.push(`/profile/${res.data.data.userId}`)
+                    router.push(`/profile/${res.data.data.userId}/me`)
                 } else if(res?.data?.resultCode === 10) {
                     dispatch('getCaptcha')
                 }
             }).catch(err => {
+                localStorage.setItem('isAuth', JSON.stringify(false))
+                localStorage.setItem('userID', JSON.stringify(null))
+
                 console.error(err.message)
             })
         },
@@ -82,8 +95,9 @@ const userModule: Module<IUserModule, IRootState> = {
         }
     },
     getters: {
-        isAuth() { return JSON.parse(localStorage.getItem('auth') || '')},
-        userID() { return JSON.parse(localStorage.getItem('id') || 'null')}
+        isAuth() { return JSON.parse(localStorage.getItem('isAuth') || 'false')},
+        userID() { return JSON.parse(localStorage.getItem('userID') || 'null')},
+        userLogin() { return JSON.parse(localStorage.getItem('userLogin') || 'null')}
     }
 }
 

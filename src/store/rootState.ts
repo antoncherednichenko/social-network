@@ -5,6 +5,7 @@ import { IRootState, ISetObj } from '@/types/rootStateTypes'
 
 import api from '@/modules/apiModule'
 import userModule from '@/modules/userModule'
+import profileModule from '@/modules/profileModule'
 
 
 
@@ -24,7 +25,8 @@ const rootState: StoreOptions<IRootState> = {
     },
     modules: {
         api,
-        user: userModule
+        user: userModule,
+        profile: profileModule
     }
 }
 

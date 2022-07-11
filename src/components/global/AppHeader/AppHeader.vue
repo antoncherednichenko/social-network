@@ -20,13 +20,13 @@ import UserInfo from '@/components/global/AppHeader/UserInfo.vue'
 import { useStore } from 'vuex';
 import { computed } from '@vue/reactivity';
 
-const { dispatch, state } = useStore()
+const store = useStore() 
 
-const isAuth = computed<boolean>(() => state.user.isAuth)
+const isAuth = computed<boolean>(() => store.state.user.isAuth || store.getters['user/isAuth'])
 
 const getDemoAcc = () => {
-    dispatch('dispatchObjectValue', { path: 'user.email', value: 'free@samuraijs.com' })
-    dispatch('dispatchObjectValue', { path: 'user.password', value: 'free' })
+    store.dispatch('dispatchObjectValue', { path: 'user.email', value: 'free@samuraijs.com' })
+    store.dispatch('dispatchObjectValue', { path: 'user.password', value: 'free' })
 }
 
 </script>

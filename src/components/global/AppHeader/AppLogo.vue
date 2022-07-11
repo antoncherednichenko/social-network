@@ -11,11 +11,11 @@ import DiagramIcon from '@/components/ui/icons/DiagramIcon.vue'
 import { computed } from '@vue/reactivity'
 import { useStore } from 'vuex';
 
-const { getters } = useStore()
+const store = useStore()
 
-const isAuth = computed<boolean>(() => getters['user/isAuth'])
-const userID = computed<number>(() => getters['user/userID'])
-const logoUrl = computed<string>(() => isAuth.value ? `/profile/${userID.value}` : '/')
+const isAuth = computed<boolean>(() => store.state.user.isAuth || store.getters['user/isAuth'])
+const userID = computed<number>(() => store.state.user.userID || store.getters['user/userID'])
+const logoUrl = computed<string>(() => isAuth.value ? `/profile/${userID.value}/me` : '/')
 </script>
 
 <style lang="sass" scoped>

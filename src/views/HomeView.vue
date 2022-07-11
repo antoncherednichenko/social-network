@@ -13,23 +13,23 @@ import { onMounted, computed } from "@vue/runtime-core";
 import { useStore } from "vuex";
 import router from '@/router';
 
-const { dispatch, state} = useStore()
+const store = useStore()
 
-const isCaptcha = computed<boolean>(() => state.user?.captcha?.isCaptcha)
-const isAuth = computed<boolean>(() => state.user.isAuth)
-const userID = computed<number>(() => state.user.userID)
+const isCaptcha = computed<boolean>(() => store.state.user?.captcha?.isCaptcha)
+const isAuth = computed<boolean>(() => store.state.user.isAuth || store.getters['user/isAuth'])
+const userID = computed<number>(() => store.state.user.userID || store.getters['user/userID'])
 
 onMounted(() => {
-   if(!isAuth.value) {
-     dispatch('user/getMe')
+    localStorage.setItem('isAuth', JSON.stringify(false))
+    localStorage.setItem('userID', JSON.stringify(null))
+    localStorage.setItem('userLogin', JSON.stringify(null))
+    
+   store.dispatch('user/getMe')
         .then(() => {
             if(isAuth.value) {
-                router.push(`/profile/${userID.value}`)
+                router.push(`/profile/${userID.value}/me`)
             }
         })
-   } else {
-        router.push(`/profile/${userID.value}`)
-   }
 })
 </script>
 

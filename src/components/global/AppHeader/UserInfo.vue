@@ -11,9 +11,9 @@ import UserIcon from '@/components/ui/icons/UserIcon.vue'
 import { useStore } from 'vuex'
 import { computed } from '@vue/reactivity';
 
-const { state } = useStore()
+const store = useStore()
 
-const login = computed<string>(() => state.user.login || state.user.email)
+const login = computed<string>(() => store.state.user.login || store.getters['user/userLogin'])
 
 </script>
 

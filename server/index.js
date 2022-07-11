@@ -13,7 +13,7 @@ const PORT = 5000
 
 const urlencodedParser = bodyParser.urlencoded({
     extended: false,
-  })
+})
 
 app.use((req, res, next) => {
     bodyParser.urlencoded({
@@ -28,7 +28,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 
-app.get('/users', async (req, resp) => {
+app.get('/users', (req, resp) => {
     axios({
         method: 'GET',
         url: `${baseURL}/users`,
@@ -46,7 +46,7 @@ app.get('/users', async (req, resp) => {
     })
 })
 
-app.get('/captcha', async (req, resp) => {
+app.get('/captcha', (req, resp) => {
 
     axios({
         method: 'GET',
@@ -65,7 +65,7 @@ app.get('/captcha', async (req, resp) => {
     })
 })
 
-app.get('/me', async (req, resp) => {
+app.get('/me', (req, resp) => {
 
     axios({
         method: 'GET',
@@ -101,6 +101,32 @@ app.post('/login', urlencodedParser,  async (req, resp) => {
     }).catch(err => {
         resp.status(500).json(err)
     })
+})
+
+app.get('/profile', (req, resp) => {
+
+    const { id } = req.query
+    
+    if(id) {
+        axios({
+            method: 'GET',
+            url: `${baseURL}/profile/${id}`,
+            data: {
+                headers,
+                userId: id
+            }
+        }).then(e => {
+            if(e.status === 200) {
+                resp.status(200).json(e.data)
+            } else {
+                resp.status(500).json(e.status)
+            }
+        }).catch(err => {
+            resp.status(500).json(err)
+        })
+    } else {
+        resp.status(500).json('where is id?')
+    }
 })
 
 

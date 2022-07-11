@@ -2,7 +2,7 @@
     <nav class="nav">
         <ul class="nav__list list"> 
             <li class="list__item item">
-                <router-link class="item__link" :to="`/profile/${userID}`">
+                <router-link class="item__link" :to="`/profile/${userID}/me`">
                     <UserIcon class="item__icon" />
                     <span>Profile</span>
                 </router-link>
@@ -38,9 +38,9 @@ import NewsPaperIcon from '@/components/ui/icons/NewsPaperIcon.vue'
 import { useStore } from 'vuex';
 import { computed } from '@vue/reactivity';
 
-const { state } = useStore()
+const store = useStore()
 
-const userID = computed<number>(() => state.user.userID)
+const userID = computed<number>(() => store.state.user.userID || store.getters['user/userID'])
 
 </script>
 
@@ -70,6 +70,8 @@ const userID = computed<number>(() => state.user.userID)
                 gap: 10px
                 span
                     color: $main-black
+                    font-size: 18px
+                    font-weight: 600
 
             &__icon
                 width: 35px

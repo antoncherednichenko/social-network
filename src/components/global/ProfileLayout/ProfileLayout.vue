@@ -22,8 +22,8 @@ import ProfileNav from '@/components/global/ProfileLayout/ProfileNav.vue'
     grid-template-columns: 0.1fr 1fr
     gap: 15px
     &__content
-        background: #fff
-        @include shadow
-        border-radius: 10px
-        padding: 10px
+        // background: #fff
+        // @include shadow
+        // border-radius: 10px
+        padding: 0 15px
 </style>
