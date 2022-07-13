@@ -4,7 +4,8 @@
             <img class="img" v-if="avatarImg" :src="avatarImg" alt="user avatar">
             <UserIcon class="icon" v-else />
         </div>
-        <div class="avatar__btn">
+        <span class="avatar__name">{{fullName}}</span>
+        <div v-if="isMyProfile" class="avatar__btn">
             <DefaultButton class="btn">Edit</DefaultButton>
         </div>
     </div>
@@ -16,10 +17,16 @@ import DefaultButton from '@/components/ui/DefaultButton/DefaultButton.vue'
 
 import { computed } from '@vue/reactivity'
 import { useStore } from 'vuex'
-
-const avatarImg = computed(() => store.state.profile?.photos?.large || store.state.profile?.photos?.small)
+import { useRoute } from 'vue-router';
 
 const store = useStore()
+const router = useRoute()
+
+const avatarImg = computed<string>(() => store.state.profile?.photos?.large || store.state.profile?.photos?.small)
+const isMyProfile = computed<boolean>(() => {
+    return Number(router.params.id) === Number(store.state.user.userID || localStorage.getItem('userID'))
+})
+const fullName = computed<string | null>(() => store.state.profile?.fullName)
 
 </script>
 
@@ -28,14 +35,12 @@ const store = useStore()
 @import '../../styles/vars'
 
 .avatar
-    padding: 15px
-    background: #fff
+    @include tile
     width: 250px
     @include flex-center
     flex-direction: column
     gap: 15px
-    @include shadow
-    border-radius: 10px
+    height: max-content
     &__img
         background: $main-grey
         width: 150px
@@ -53,4 +58,8 @@ const store = useStore()
         .btn
             display: block
             width: 100%
+    &__name
+        font-size: 20px
+        font-weight: 600
+        text-decoration: underline
 </style>

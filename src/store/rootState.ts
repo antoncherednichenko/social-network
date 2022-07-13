@@ -11,9 +11,10 @@ import profileModule from '@/modules/profileModule'
 
 const rootState: StoreOptions<IRootState> = {
     state: {
+
     },
     mutations: {
-        setObjectValue(state, setObj: ISetObj<any>) {
+        setObjectValue(state: IRootState, setObj: ISetObj<any>) {
             const { path, value } = setObj
             set(state, path, value)
         }
