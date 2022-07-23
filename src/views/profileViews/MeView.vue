@@ -14,7 +14,7 @@ const store = useStore()
 const userID = computed(() => store.state.user.userID || store.getters['user/userID'])
 
 onMounted(() => {
-    store.dispatch('profile/getProfileById', Number(userID.value))
+    store.dispatch('profile/GET_PROFILE_BY_ID', Number(userID.value))
 })
 </script>
 

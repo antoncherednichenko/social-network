@@ -24,7 +24,9 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
+
 import { useStore } from 'vuex';
+import { rootConstants } from '@/store/storeConst';
 
 import AppInput from '@/components/ui/AppInput/AppInput.vue'
 import AppButton from '@/components/ui/AppButton/AppButton.vue'
@@ -36,18 +38,18 @@ const password = computed<string>(() => store.state.user.password)
 const isValidFrom = computed<boolean>(() => email.value.length >= 4 && password.value.length >= 4)
 
 const onEmailChange = (value: string) => { 
-    store.dispatch('dispatchObjectValue', { path: 'user.email', value }) 
+    store.dispatch(rootConstants.DISPATCH_OBJECT_VALUE, { path: 'user.email', value }) 
 }
 
 const onPasswordChange = (value: string) => {
-    store.dispatch('dispatchObjectValue', { path: 'user.password', value })
+    store.dispatch(rootConstants.DISPATCH_OBJECT_VALUE, { path: 'user.password', value })
 }
 
 const validator = (value: string): boolean => value.length >= 4
 
 const signin = () => {
     if(isValidFrom.value) {
-        store.dispatch('user/login', {
+        store.dispatch('user/LOGIN', {
             email: email.value,
             password: password.value
         })

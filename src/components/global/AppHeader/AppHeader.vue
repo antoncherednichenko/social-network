@@ -18,6 +18,8 @@ import AppLogo from '@/components/global/AppHeader/AppLogo.vue'
 import UserInfo from '@/components/global/AppHeader/UserInfo.vue'
 
 import { useStore } from 'vuex';
+import { rootConstants } from '@/store/storeConst';
+
 import { computed } from '@vue/reactivity';
 
 const store = useStore() 
@@ -25,8 +27,8 @@ const store = useStore()
 const isAuth = computed<boolean>(() => store.state.user.isAuth || store.getters['user/isAuth'])
 
 const getDemoAcc = () => {
-    store.dispatch('dispatchObjectValue', { path: 'user.email', value: 'free@samuraijs.com' })
-    store.dispatch('dispatchObjectValue', { path: 'user.password', value: 'free' })
+    store.dispatch(rootConstants.DISPATCH_OBJECT_VALUE, { path: 'user.email', value: 'free@samuraijs.com' })
+    store.dispatch(rootConstants.DISPATCH_OBJECT_VALUE, { path: 'user.password', value: 'free' })
 }
 
 </script>

@@ -17,11 +17,12 @@ import AppModal from '@/components/ui/AppModal/AppModal.vue'
 import EditFoto from '@/components/AppProfile/ProfileAvatar/EditFoto.vue'
 
 import { useStore } from 'vuex';
+import { rootConstants } from '@/store/storeConst';
 
 const store = useStore()
 
 const closeModal = () => {
-    store.dispatch('dispatchObjectValue', { path: 'profile.editModal.isModal', value: false })
+    store.dispatch(rootConstants.DISPATCH_OBJECT_VALUE, { path: 'profile.editModal.isModal', value: false })
 }
 </script>
 

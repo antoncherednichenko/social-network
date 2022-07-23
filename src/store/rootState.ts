@@ -3,23 +3,24 @@ import { set } from 'lodash'
 
 import { IRootState, ISetObj } from '@/types/rootStateTypes'
 
-import api from '@/modules/apiModule'
-import userModule from '@/modules/userModule'
-import profileModule from '@/modules/profileModule'
+import api from '@/store/modules/apiModule'
+import userModule from '@/store/modules/userModule'
+import profileModule from '@/store/modules/profileModule'
 import { IProfile } from '@/types/profileModuleTypes'
+import { rootConstants } from './storeConst'
 
 
 
 const rootState: Module<IRootState, IRootState> = {
     mutations: {
-        setObjectValue(state: IRootState, setObj: ISetObj<any>) {
+        [rootConstants.SET_OBJECT_VALUE](state: IRootState, setObj: ISetObj<any>) {
             const { path, value } = setObj
             set(state, path, value)
         }
     },
     actions: {
-        dispatchObjectValue({ commit }, setObj: ISetObj<any>) {
-            commit('setObjectValue', setObj)
+        [rootConstants.DISPATCH_OBJECT_VALUE]({ commit }, setObj: ISetObj<any>) {
+            commit(rootConstants.SET_OBJECT_VALUE, setObj)
         }
     },
     modules: {

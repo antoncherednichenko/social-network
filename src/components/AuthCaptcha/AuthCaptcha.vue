@@ -32,6 +32,8 @@ import AppInput from '@/components/ui/AppInput/AppInput.vue'
 import DefaultButton from '@/components/ui/DefaultButton/DefaultButton.vue'
 
 import { useStore } from 'vuex'
+import { rootConstants } from '@/store/storeConst'
+
 import { computed, ref } from '@vue/reactivity'
 
 const store = useStore()
@@ -44,12 +46,12 @@ const password = computed<string>(() => store.state.user.password)
 const validator = (value: string) => value.length >= 4
 const onCaptchaChange = (value: string) => { captchaValue.value = value }
 const closeModal = () => { 
-    store.dispatch('dispatchObjectValue', { path: 'user.captcha.isCaptcha', value: false }) 
-    store.dispatch('dispatchObjectValue', { path: 'user.captcha.url', value: '' }) 
+    store.dispatch(rootConstants.DISPATCH_OBJECT_VALUE, { path: 'user.captcha.isCaptcha', value: false }) 
+    store.dispatch(rootConstants.DISPATCH_OBJECT_VALUE, { path: 'user.captcha.url', value: '' }) 
 }
-const updateCaptcha = () => { store.dispatch('user/getCaptcha') }
+const updateCaptcha = () => { store.dispatch('user/GET_CAPTCHA') }
 const sendCaptcha = () => { 
-    store.dispatch('user/login', {
+    store.dispatch('user/LOGIN', {
         email: email.value,
         password: password.value,
         captcha: captchaValue.value

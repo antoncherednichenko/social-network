@@ -18,7 +18,9 @@ import DefaultButton from '@/components/ui/DefaultButton/DefaultButton.vue'
 import EditModal from '@/components/AppProfile/ProfileAvatar/EditModal.vue'
 
 import { computed } from '@vue/reactivity'
+
 import { useStore } from 'vuex'
+import { rootConstants } from '@/store/storeConst'
 import { useRoute } from 'vue-router';
 
 const store = useStore()
@@ -32,7 +34,7 @@ const fullName = computed<string | null>(() => store.state.profile?.fullName)
 const isModal = computed<boolean>(() => store.state.profile?.editModal?.isModal)
 
 const showModal = () => {
-    store.dispatch('dispatchObjectValue', { path: 'profile.editModal.isModal', value: true })
+    store.dispatch(rootConstants.DISPATCH_OBJECT_VALUE, { path: 'profile.editModal.isModal', value: true })
 }
 
 </script>

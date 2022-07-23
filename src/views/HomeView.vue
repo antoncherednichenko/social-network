@@ -24,7 +24,7 @@ onMounted(() => {
     localStorage.setItem('userID', JSON.stringify(null))
     localStorage.setItem('userLogin', JSON.stringify(null))
     
-   store.dispatch('user/getMe')
+   store.dispatch('user/GET_ME')
         .then(() => {
             if(isAuth.value) {
                 router.push(`/profile/${userID.value}/me`)
