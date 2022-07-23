@@ -1,4 +1,4 @@
-import { StoreOptions } from 'vuex'
+import { Module, StoreOptions } from 'vuex'
 import { set } from 'lodash'
 
 import { IRootState, ISetObj } from '@/types/rootStateTypes'
@@ -6,13 +6,11 @@ import { IRootState, ISetObj } from '@/types/rootStateTypes'
 import api from '@/modules/apiModule'
 import userModule from '@/modules/userModule'
 import profileModule from '@/modules/profileModule'
+import { IProfile } from '@/types/profileModuleTypes'
 
 
 
-const rootState: StoreOptions<IRootState> = {
-    state: {
-
-    },
+const rootState: Module<IRootState, IRootState> = {
     mutations: {
         setObjectValue(state: IRootState, setObj: ISetObj<any>) {
             const { path, value } = setObj
@@ -27,7 +25,7 @@ const rootState: StoreOptions<IRootState> = {
     modules: {
         api,
         user: userModule,
-        profile: profileModule
+        profile: profileModule as Module<IProfile, IRootState>
     }
 }
 

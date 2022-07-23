@@ -1,10 +1,10 @@
 <template>
     <div class="captcha">
-        <AppModal :closeCallback="closeModal">
-            <template v-slot:header>
+        <AppModal @close-modal="closeModal">
+            <template #header>
                 <h2 class="captcha__header">Captcha</h2>
             </template>
-            <template v-slot:content>
+            <template #content>
                 <div class="captcha__body body">
                     <img class="body__img" v-if="imgUrl" :src="imgUrl" />
                     <AppInput

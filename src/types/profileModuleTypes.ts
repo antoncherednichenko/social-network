@@ -1,18 +1,13 @@
 
-export interface IContacts {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    wevsite: string
-    youtube: string
-    mainLink: string
-}
+export type TContacts = { [key: string]: string }
 
 export interface IPhotos {
     small: string
     large: string
+}
+
+export interface IEditModal {
+    isModal: boolean
 }
 
 export interface IProfile {
@@ -21,7 +16,8 @@ export interface IProfile {
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string,
-    contacts: IContacts | null
+    contacts: TContacts | null
     photos: IPhotos | null
-    isLoading: boolean
+    isLoading: boolean,
+    editModal: IEditModal
 }

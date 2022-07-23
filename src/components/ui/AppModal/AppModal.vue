@@ -22,16 +22,14 @@
 <script lang="ts" setup>
 import CrossButton from '@/components/ui/CrossButton/CrossButton.vue'
 
-import { defineProps } from 'vue'
+import { defineEmits } from 'vue'
 
-interface IModalProps {
-    closeCallback: () => void
-}
-
-const props = defineProps<IModalProps>()
+const emit = defineEmits<{
+    (e: 'close-modal'): void
+}>()
 
 const closeModal = () => {
-    props.closeCallback()
+    emit('close-modal')
 }
 </script>
 

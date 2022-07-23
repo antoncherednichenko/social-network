@@ -6,14 +6,16 @@
         </div>
         <span class="avatar__name">{{fullName}}</span>
         <div v-if="isMyProfile" class="avatar__btn">
-            <DefaultButton class="btn">Edit</DefaultButton>
+            <DefaultButton @click="showModal" class="btn">Edit</DefaultButton>
         </div>
+        <EditModal v-if="isModal" />
     </div>
 </template>
 
 <script lang="ts" setup>
 import UserIcon from '@/components/ui/icons/UserIcon.vue'
 import DefaultButton from '@/components/ui/DefaultButton/DefaultButton.vue'
+import EditModal from '@/components/AppProfile/ProfileAvatar/EditModal.vue'
 
 import { computed } from '@vue/reactivity'
 import { useStore } from 'vuex'
@@ -27,12 +29,17 @@ const isMyProfile = computed<boolean>(() => {
     return Number(router.params.id) === Number(store.state.user.userID || localStorage.getItem('userID'))
 })
 const fullName = computed<string | null>(() => store.state.profile?.fullName)
+const isModal = computed<boolean>(() => store.state.profile?.editModal?.isModal)
+
+const showModal = () => {
+    store.dispatch('dispatchObjectValue', { path: 'profile.editModal.isModal', value: true })
+}
 
 </script>
 
 <style lang="sass" scoped>
-@import '../../styles/mixins'
-@import '../../styles/vars'
+@import '../../../styles/mixins'
+@import '../../../styles/vars'
 
 .avatar
     @include tile

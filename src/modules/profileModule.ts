@@ -13,7 +13,10 @@ const profileModule: Module<IProfile, IRootState> = {
         lookingForAJob: false,
         lookingForAJobDescription: '',
         photos: null,
-        isLoading: false
+        isLoading: false,
+        editModal: {
+            isModal: false
+        }
     },
     actions: {
         getProfileById({ dispatch, commit }, id: number) {
@@ -23,12 +26,12 @@ const profileModule: Module<IProfile, IRootState> = {
                 method: 'GET',
                 type: `profile?id=${id}`
             }, { root: true }).then(res => {
-                if(res.status === 200) {
+                if(res.status === 200) {    
                     commit('setObjectValue', { path: 'profile.aboutMe', value: res.data?.aboutMe }, { root: true })
                     commit('setObjectValue', { path: 'profile.contacts', value: res.data?.contacts }, { root: true })
                     commit('setObjectValue', { path: 'profile.fullName', value: res.data?.fullName }, { root: true })
                     commit('setObjectValue', { path: 'user.login', value: res.data?.fullName }, { root: true })
-                    commit('setObjectValue', { path: 'profile.lookingAJob', value: res.data?.lookingAJob }, { root: true })
+                    commit('setObjectValue', { path: 'profile.lookingForAJob', value: res.data?.lookingForAJob }, { root: true })
                     commit('setObjectValue', { path: 'profile.lookingForAJobDescription', value: res.data?.lookingForAJobDescription }, { root: true })
                     commit('setObjectValue', { path: 'profile.photos', value: res.data?.photos }, { root: true })
                     commit('setObjectValue', { path: 'profile.currentUserID', value: res.data?.userId }, { root: true })

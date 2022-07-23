@@ -1,9 +1,13 @@
+import { InjectionKey } from 'vue'
+import { createStore, Store } from 'vuex'
+
 import { IRootState } from '@/types/rootStateTypes'
-import { createStore } from 'vuex'
 
 import rootState from './rootState'
 
+export const key: InjectionKey<Store<IRootState>> = Symbol()
 
 
+const store = createStore<IRootState>(rootState)
 
-export default createStore<IRootState>(rootState)
+export default  store

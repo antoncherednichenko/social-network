@@ -22,6 +22,7 @@ const store = useStore()
 
 const lookingForAJob = computed<boolean>(() => store.state.profile?.lookingForAJob)
 const lookingForAJobDescr = computed<string | null>(() => store.state.profile?.lookingForAJobDescription)
+
 </script>
 
 <style lang="sass" scoped>
